@@ -17,13 +17,18 @@ from mindspore import dtype as mstype
 #load model
 model_name = "AI-ModelScope/CodeLlama-7b-Instruct-hf"
 # model_name = "OpenBMB/MiniCPM-2B-dpo-fp16"
-# tokenizer = CodeLlamaTokenizer.from_pretrained(model_name, mirror="modelscope")
-tokenizer = AutoTokenizer.from_pretrained(model_name, mirror="modelscope")
+tokenizer = CodeLlamaTokenizer.from_pretrained(model_name, mirror="modelscope")
+
+# for MiniCPM
+# ps. when use minicpm tokenizer, need to modify the chat_template which is in tokenizer_json
+# tokenizer = AutoTokenizer.from_pretrained(model_name, mirror="modelscope")
 tokenizer.pad_token = tokenizer.eos_token
 tokenizer.pad_token_id = tokenizer.eos_token_id
 tokenizer.padding_side = 'right'  # deal with overflow issues when training in half-precision
 
 model = AutoModelForCausalLM.from_pretrained(model_name, mirror="modelscope")
+
+# for MiniCPM
 # model = MiniCPMForCausalLM.from_pretrained(model_name, mirror="modelscope")
 
 dataset = load_dataset('csv', data_files={

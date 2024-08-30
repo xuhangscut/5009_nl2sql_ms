@@ -24,7 +24,7 @@ class EosListStoppingCriteria(StoppingCriteria):
         return mindspore.Tensor(is_done)
 
 model_name = 'AI-ModelScope/CodeLlama-7b-Instruct-hf'  # 模型名称
-# model_path = 'nl2sql/models/deepseek'  # 原始模型所存放的文件夹， 例如 ‘nl2sql/hf_models/deepseek’
+
 peft_layer_path = './5009_nl2sql/peft_models/nl2table/peft_model_ms/1'  # 在finetuning中， PEFT层的输出路径，例如'nl2sql/peft_models/nl2table/peft_model1'
 test_data_prompt1 = './5009_nl2sql/data/nl2table/prompt1_test.json'  # 测试集prompt1的路径，例如'nl2sql/data/nl2table/prompt1_test.json'
 test_data_output1 = './5009_nl2sql/data/nl2table/outputs1_test_ms.json'  # 测试集output1路径， 例如'nl2sql/data/nl2table/outputs1_test.json'
