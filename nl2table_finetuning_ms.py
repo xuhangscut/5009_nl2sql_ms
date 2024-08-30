@@ -16,7 +16,7 @@ from mindspore import dtype as mstype
 # mindspore.set_context(pynative_synchronize=True)
 #load model
 model_name = "AI-ModelScope/CodeLlama-7b-Instruct-hf"
-model_name = "OpenBMB/MiniCPM-2B-dpo-fp16"
+# model_name = "OpenBMB/MiniCPM-2B-dpo-fp16"
 # tokenizer = CodeLlamaTokenizer.from_pretrained(model_name, mirror="modelscope")
 tokenizer = AutoTokenizer.from_pretrained(model_name, mirror="modelscope")
 tokenizer.pad_token = tokenizer.eos_token

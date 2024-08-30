@@ -16,7 +16,6 @@ from mindnlp.engine import Trainer
 # mindspore.set_context(pynative_synchronize=True)
 #load model
 model_name = "AI-ModelScope/CodeLlama-7b-Instruct-hf"
-# model_dir = "./.mindnlp/model/AI-ModelScope/CodeLlama-7b-Instruct-hf"
 # model_name = "OpenBMB/MiniCPM-2B-dpo-fp16"
 tokenizer = CodeLlamaTokenizer.from_pretrained(model_name, mirror="modelscope")
 # tokenizer = AutoTokenizer.from_pretrained(model_name, mirror="modelscope")
