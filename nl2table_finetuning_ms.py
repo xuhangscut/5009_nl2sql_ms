@@ -71,7 +71,6 @@ print(train_dataset.get_dataset_size())
 
 # peft training
 ## Initialize lora parameters
-# loftq_config = LoftQConfig(loftq_bits=4)
 peft_config = LoraConfig(
     task_type=TaskType.CAUSAL_LM,
     inference_mode=False,
@@ -80,27 +79,15 @@ peft_config = LoraConfig(
     use_rslora=True,
     lora_dropout=0.1,
     target_cells=[
-        # "q_proj",
-        # "v_proj",
-        # "k_proj",
-        # "o_proj",
-        # "gate_proj",
-        # "up_proj",
-        # "down_proj",
+        "q_proj",
+        "v_proj",
+        "k_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj",
         "lm_head"
-    ],
-    # target_modules=[
-    #     "q_proj",
-    #     "v_proj",
-    #     "k_proj",
-    #     "o_proj",
-    #     "gate_proj",
-    #     "up_proj",
-    #     "down_proj",
-    #     "lm_head"
-    #],
-    # init_lora_weights='loftq',
-    # loftq_config=loftq_config
+    ]
 )
 
 model = get_peft_model(model, peft_config)
@@ -128,7 +115,6 @@ load_best_model_at_end= False
 packing = False
 save_total_limit=3
 neftune_noise_alpha=5
-# report_to="wandb"
 
 training_arguments = TrainingArguments(
     output_dir=peft_output_dir,
@@ -150,21 +136,14 @@ training_arguments = TrainingArguments(
     warmup_ratio=warmup_ratio,
     group_by_length=group_by_length,
     lr_scheduler_type=lr_scheduler_type,
-    # report_to=report_to,
     neftune_noise_alpha= neftune_noise_alpha
 )
 
 trainer = Trainer(
     model=model,
-    # peft_config=peft_config,
     train_dataset=train_dataset,
     eval_dataset=eval_dataset,
-    # formatting_func=formatting_prompt_func,
-    # data_collator=collator,
-    # tokenizer=tokenizer,
     args=training_arguments
-    # max_seq_length=max_seq_length,
-    # packing=packing
 )
 trainer.train()
 

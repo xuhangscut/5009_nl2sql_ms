@@ -67,7 +67,6 @@ print(next(train_dataset.create_tuple_iterator()))
 print(train_dataset.get_dataset_size())
 
 # build peft model
-# loftq_config = LoftQConfig(loftq_bits=4)
 peft_config = LoraConfig(
     task_type=TaskType.CAUSAL_LM, 
     inference_mode=False,
@@ -75,28 +74,16 @@ peft_config = LoraConfig(
     lora_alpha=32,
     use_rslora=True,
     lora_dropout=0.1,
-    # target_cells=[
-    #     "q_proj",
-    #     "v_proj",
-    #     "k_proj",
-    #     "o_proj",
-    #     "gate_proj",
-    #     "up_proj",
-    #     "down_proj",
-    #     "lm_head"
-    # ],
-    # target_modules=[
-    #     "q_proj",
-    #     "v_proj",
-    #     "k_proj",
-    #     "o_proj",
-    #     "gate_proj",
-    #     "up_proj",
-    #     "down_proj",
-    #     "lm_head"
-    # ],
-    # init_lora_weights='loftq',
-    # loftq_config=loftq_config
+    target_cells=[
+        "q_proj",
+        "v_proj",
+        "k_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj",
+        "lm_head"
+    ]
 )
 model = get_peft_model(model, peft_config)
 # print(model)
@@ -151,15 +138,9 @@ training_arguments = TrainingArguments(
 
 trainer = Trainer(
     model=model,
-    # peft_config=peft_config,
     train_dataset=train_dataset,
     eval_dataset=eval_dataset,
-    # formatting_func=formatting_prompt_func,
-    # data_collator=collator,
-    # tokenizer=tokenizer,
     args=training_arguments
-    # max_seq_length=max_seq_length,
-    # packing=packing
 )
 trainer.train()
 
