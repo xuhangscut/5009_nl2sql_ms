@@ -94,7 +94,7 @@ model = get_peft_model(model, peft_config)
 model.print_trainable_parameters()
 
 num_train_epochs = 1
-bf16 = True
+fp16 = True
 overwrite_output_dir = True
 per_device_train_batch_size = 1
 per_device_eval_batch_size = 1
@@ -132,7 +132,7 @@ training_arguments = TrainingArguments(
     logging_steps=logging_steps,
     learning_rate=learning_rate,
     weight_decay=weight_decay,
-    bf16=bf16,
+    fp16=fp16,
     warmup_ratio=warmup_ratio,
     group_by_length=group_by_length,
     lr_scheduler_type=lr_scheduler_type,
